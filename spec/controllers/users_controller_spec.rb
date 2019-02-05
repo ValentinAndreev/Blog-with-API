@@ -70,8 +70,8 @@ RSpec.describe UsersController, type: :controller do
         expect(user.reload.valid_password?(new_password)).to be_truthy
       end
 
-      it 'should render template' do
-        expect(response).to render_template(:edit)
+      it 'should redirect to edit' do
+        expect(response).to redirect_to edit_user_path(user)
       end
 
       it 'user auto login after update' do
@@ -96,8 +96,8 @@ RSpec.describe UsersController, type: :controller do
         expect(user.reload.valid_password?('newpassword')).to be_falsey
       end
 
-      it 'should render template' do
-        expect(response).to render_template(:edit)
+      it 'should redirect to edit' do
+        expect(response).to redirect_to edit_user_path(user)
       end
     end
 

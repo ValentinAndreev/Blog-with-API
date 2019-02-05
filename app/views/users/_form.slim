@@ -6,5 +6,14 @@
     .col-md-6
       = f.input :nickname, as: :string
       = f.input :password_confirmation
+  .row
+    .col-md-6
+      - if user.avatar.attached?
+        = f.label :avatar
+        br
+        = image_tag user.avatar.variant(resize: '300x300')
+    .col-md-6
+      br
+      = f.file_field :avatar
   hr
   = f.button :submit, 'Создать/изменить', class: 'btn btn-success'

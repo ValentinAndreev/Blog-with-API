@@ -11,7 +11,11 @@ table.table.table-condensed.table-striped
     tr
       td= post.title
       td= post.body
-      td= post.user.nickname
+      td
+        - if post.user.avatar.attached?
+          = image_tag post.user.avatar.variant(resize: '80x80')
+        br
+        = post.user.nickname
       td= post.published_at
       td
         = render 'posts/actions', post: post

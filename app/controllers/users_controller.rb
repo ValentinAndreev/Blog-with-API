@@ -20,17 +20,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update!(user_params)
-    flash.now.alert = 'Профиль изменен.'
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now.alert = e.message
-  ensure
-    edit
+    current_user.update(user_params)
+    redirect_to edit_user_path(current_user), alert: message
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:nickname, :email, :password, :password_confirmation)
+    params.require(:user).permit(:nickname, :email, :password, :password_confirmation, :avatar)
+  end
+
+  def message
+    current_user.errors.full_messages.join(', ').presence || 'Профиль изменен.'
   end
 end
