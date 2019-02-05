@@ -13,5 +13,5 @@ table.table.table-condensed.table-striped
         td= comment.user.nickname
         td= comment.published_at
         td
-          - if current_user == comment.user
+          - if comment.deletable_by?(current_user)
             = link_to 'Удалить', post_comment_path(comment.post, comment), method: :delete, data: { confirm: 'Удалить?' }, class: 'btn btn-danger btn-sm'

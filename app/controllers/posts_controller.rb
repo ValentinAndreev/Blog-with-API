@@ -19,30 +19,25 @@ class PostsController < ApplicationController
 
   def create
     Post.create! permitted_params.merge(user_id: current_user.id, published_at: Time.now)
-
-    redirect_to posts_path, notice: 'Создан новый пост'
+    redirect_to posts_path, alert: 'Пост создан.'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now.alert = e.message
-    render :new, locals: { post: e.record }
+    render :new, locals: { post: e.record }, alert: e.message
   end
 
   def update
+    authorize_action_for post
     post.update! permitted_params
-
-    redirect_to posts_path, notice: 'Пост изменен'
+    redirect_to posts_path, alert: 'Пост изменен.'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now.alert = e.message
-    render :edit, locals: { post: e.record }
+    render :edit, locals: { post: e.record }, alert: e.message
   end
 
   def destroy
+    authorize_action_for post
     post.destroy!
-
-    flash.notice = 'Пост удален'
+    redirect_to posts_path, alert: 'Пост удален.'
   rescue ActiveRecord::RecordInvalid => e
-    flash.alert = e.message
-  ensure
-    redirect_to posts_path
+    redirect_to posts_path, alert: e.message
   end
 
   private

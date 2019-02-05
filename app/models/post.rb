@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  include Authority::Abilities
+
   has_many :comments, dependent: :destroy
   belongs_to :user
 

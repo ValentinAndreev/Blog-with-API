@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Authority::Abilities
+  include Authority::UserAbilities
+
   authenticates_with_sorcery!
 
   has_many :posts

@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
 
   def create
     if login user_params[:email], user_params[:password]
-      redirect_back_or_to root_path, notice: 'Добро пожаловать!'
+      redirect_back_or_to root_path, alert: 'Добро пожаловать!'
     else
       flash.now.alert = 'Неверный email или пароль.'
       new

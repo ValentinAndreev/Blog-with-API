@@ -4,29 +4,28 @@ class CommentsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def create
     post.comments.create! permitted_params.merge(user_id: current_user.id, published_at: Time.now)
-
-    flash.now.alert = 'Создан новый комментарий.'
+    redirect_to post_path(post), alert: 'Комментарий создан.'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now.alert = e.message
-  ensure
-    render 'posts/show', locals: { post: post, comments: post.comments.order(:published_at).page(params[:page]) }
-  end
-
-  def destroy
-    post.comments.find(params[:id]).destroy!
-
-    flash.now.alert = 'Комментарий удален.'
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now.alert = e.message
-  ensure
-    render 'posts/show', locals: { post: post, comments: post.comments.order(:published_at).page(params[:page]) }
+    redirect_to post_path(post), alert: e.message
   end
   # rubocop:enable Metrics/AbcSize
+
+  def destroy
+    authorize_action_for comment
+    comment.destroy!
+    redirect_to post_path(post), alert: 'Комментарий удален.'
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to post_path(post), alert: e.message
+  end
 
   private
 
   def post
     @post ||= Post.find params[:post_id]
+  end
+
+  def comment
+    post.comments.find(params[:id])
   end
 
   def permitted_params
