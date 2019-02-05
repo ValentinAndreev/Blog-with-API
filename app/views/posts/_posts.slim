@@ -1,0 +1,18 @@
+table.table.table-condensed.table-striped
+  thead
+    tr
+      th Title
+      th Body
+      th Author
+      th Published at:
+      th Действия
+  tbody
+    - posts.each do |post|
+      tr
+        td= post.title
+        td= post.body
+        td= post.user.nickname
+        td= post.published_at
+        td
+          = link_to 'Показать', post_path(post), class: 'btn btn-success'
+          = render 'actions', post: post

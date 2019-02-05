@@ -1,0 +1,8 @@
+= simple_form_for(user, method: :post, url: user_sessions_path) do |f|
+  .row
+    .col-md-6
+      = f.input :email, as: :string
+    .col-md-6
+      = f.input :password
+  hr
+  = f.button :submit, 'Войти', class: 'btn btn-success'

@@ -1,0 +1,17 @@
+h4 Комментарии:
+table.table.table-condensed.table-striped
+  thead
+    tr
+      th Body
+      th Author
+      th Published at:
+      th Действия
+  tbody
+    - comments.each do |comment|
+      tr
+        td= comment.body
+        td= comment.user.nickname
+        td= comment.published_at
+        td
+          - if current_user == comment.user
+            = link_to 'Удалить', post_comment_path(comment.post, comment), method: :delete, data: { confirm: 'Удалить?' }, class: 'btn btn-danger btn-sm'

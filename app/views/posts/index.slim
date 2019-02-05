@@ -1,0 +1,8 @@
+.text-right
+  = link_to 'Новый пост', new_post_path, class: 'btn btn-success'
+br
+- if posts.any?
+  = render 'posts', posts: posts
+  = paginate posts
+- else
+  p.alert Посты отсутствуют

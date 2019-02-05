@@ -1,0 +1,28 @@
+h3 Пост:
+table.table.table-condensed.table-striped
+  thead
+    tr
+      th Title
+      th Body
+      th Author
+      th Published at:
+      th Действия
+  tbody
+    tr
+      td= post.title
+      td= post.body
+      td= post.user.nickname
+      td= post.published_at
+      td
+        = render 'posts/actions', post: post
+h4 Добавить комментарий:
+= simple_form_for [ post, post.comments.build ] do |f|
+  = f.input :body, as: :text
+  hr
+  = f.button :submit, 'Создать', class: 'btn btn-success'
+br
+- if comments.any?
+  = render 'posts/comments', comments: comments
+  = paginate comments
+- else
+  p.alert Комментарии отсутствуют

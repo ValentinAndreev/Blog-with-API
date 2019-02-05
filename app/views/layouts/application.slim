@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Blog
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container
+      nav.navbar.fixed-top.navbar-expand-sm.navbar-dark.bg-primary  
+        button.navbar-toggler[type="button" data-toggle="collapse" data-target="#collapsingNavbarLg"]
+          span.navbar-toggler-icon
+        #collapsingNavbarLg.navbar-collapse.collapse
+          ul.navbar-nav
+            - if current_user
+              li.nav-item
+                = link_to current_user.nickname, edit_user_path(current_user), class: 'nav-link'
+              li.nav-item
+                = link_to 'Посты', posts_path, class: 'nav-link'
+              li.nav-item
+                = link_to 'Выход', logout_path, method: :delete, class: 'nav-link'
+            - else
+              li.nav-item
+                = link_to 'Вход', login_path, class: 'nav-link'
+              li.nav-item
+                = link_to 'Регистрация', new_user_path, class: 'nav-link'
+      br
+      p.notice= notice
+      p.alert= alert
+      = yield

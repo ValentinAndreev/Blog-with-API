@@ -1,0 +1,7 @@
+= simple_form_for post do |f|
+  .row
+    .col-md-12
+      = f.input :title, as: :string
+      = f.input :body, as: :text
+  hr
+  = f.button :submit, 'Создать/изменить', class: 'btn btn-success'
