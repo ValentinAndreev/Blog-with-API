@@ -3,7 +3,8 @@ h2 Посты:
   = link_to 'Новый пост', new_post_path, class: 'btn btn-success'
 br
 - if posts.any?
+  = paginate posts, theme: 'twitter-bootstrap-4'
   = render 'posts', posts: posts
-  = paginate posts
+  = paginate posts, theme: 'twitter-bootstrap-4'
 - else
   p.alert Посты отсутствуют
