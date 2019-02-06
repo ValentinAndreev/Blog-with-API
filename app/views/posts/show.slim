@@ -10,7 +10,7 @@ table.table.table-condensed.table-striped
   tbody
     tr
       td= post.title
-      td= post.body
+      td[width='50%']= post.body
       td
         - if post.user.avatar.attached?
           = image_tag post.user.avatar.variant(resize: '80x80')
@@ -22,8 +22,10 @@ table.table.table-condensed.table-striped
 h4 Добавить комментарий:
 = simple_form_for [ post, post.comments.build ] do |f|
   = f.input :body, as: :text
+  = f.input :published_at, as: :datetime
   hr
-  = f.button :submit, 'Создать', class: 'btn btn-success'
+  .text-right
+    = f.button :submit, 'Создать', class: 'btn btn-success'
 br
 - if comments.any?
   = paginate comments, theme: 'twitter-bootstrap-4'

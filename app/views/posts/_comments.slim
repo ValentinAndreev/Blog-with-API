@@ -9,7 +9,7 @@ table.table.table-condensed.table-striped
   tbody
     - comments.each do |comment|
       tr
-        td= comment.body
+        td[width='50%']= comment.body
         td= comment.user.nickname
         td= comment.published_at
         td

@@ -3,5 +3,6 @@
     .col-md-12
       = f.input :title, as: :string
       = f.input :body, as: :text
+      = f.input :published_at, as: :datetime
   hr
   = f.button :submit, 'Создать/изменить', class: 'btn btn-success'

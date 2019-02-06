@@ -37,10 +37,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'activestorage-validator'
+gem 'active_model_serializers'
 gem 'authority'
 gem "aws-sdk-s3", require: false
 gem 'bootstrap'
 gem 'bootstrap4-kaminari-views'
+gem 'jwt'
 gem 'jquery-rails'
 gem 'image_processing', '~> 1.2'
 gem 'kaminari'

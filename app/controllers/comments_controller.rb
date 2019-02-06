@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  # rubocop:disable Metrics/AbcSize
   def create
-    post.comments.create! permitted_params.merge(user_id: current_user.id, published_at: Time.now)
+    post.comments.create! permitted_params.merge(user_id: current_user.id)
     redirect_to post_path(post), alert: 'Комментарий создан.'
   rescue ActiveRecord::RecordInvalid => e
     redirect_to post_path(post), alert: e.message
   end
-  # rubocop:enable Metrics/AbcSize
 
   def destroy
     authorize_action_for comment
@@ -29,6 +27,6 @@ class CommentsController < ApplicationController
   end
 
   def permitted_params
-    params.fetch(:comment, {}).permit(:body)
+    params.require(:comment).permit(:body, :published_at)
   end
 end
