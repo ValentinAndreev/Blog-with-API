@@ -11,7 +11,7 @@ module Jwt
     private
 
     def issue_token(payload)
-      JWT.encode(payload.merge(exp: Time.now.to_i + 120), ENV['JWT_SECRET_KEY'])
+      JWT.encode(payload.merge(exp: Time.now.to_i + 900), ENV['JWT_SECRET_KEY'])
     end
   end
 end

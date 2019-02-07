@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Posts API' do
+describe 'Post API' do
   let(:user) { create :user, password: 'password', password_confirmation: 'password' }
   let!(:posts) { create_list(:post, 11) }
 
@@ -36,6 +36,18 @@ describe 'Posts API' do
       expect(response.headers['Total-pages']).to eq 6
       expect(response.headers['Total-records']).to eq 11
     end
+
+    it 'with all parameters return report' do
+      post '/api/v1/reports/by_author.json', params: { start_date: Date.today, end_date: Date.today + 1.day, email: 'mail@mail.com' },
+                                             headers: { 'Authorization' => token }
+      expect(response.status).to eq 200
+    end
+
+    it 'report return errors if some parameters missing' do
+      post '/api/v1/reports/by_author.json', headers: { 'Authorization' => token }
+      expect(response.status).to eq 422
+      expect(response.body).to include('error', 'start_date', 'end_date', 'email')
+    end
   end
 
   context 'without authorization token' do
@@ -51,6 +63,11 @@ describe 'Posts API' do
 
     it 'not return posts by page and per_page parameters' do
       get '/api/v1/posts.json', params: { page: 2, per_page: 2 }
+      expect(response.status).to eq 401
+    end
+
+    it 'not return report' do
+      post '/api/v1/reports/by_author.json', params: { start_date: Date.today, end_date: Date.today + 1.day, email: 'mail@mail.com' }
       expect(response.status).to eq 401
     end
   end

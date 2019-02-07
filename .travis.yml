@@ -6,3 +6,5 @@ before_script:
   - cp config/travisdatabase.yml config/database.yml
   - bundle exec rake db:migrate
   - bundle exec rubocop
+services:
+  - redis-server

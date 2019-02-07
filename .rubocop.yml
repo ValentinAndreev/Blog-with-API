@@ -29,6 +29,9 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 150
 
+Metrics/AbcSize:
+  Max: 20
+
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: []

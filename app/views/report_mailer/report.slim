@@ -1,0 +1,15 @@
+| Report from #{params[:start_date]} to #{params[:end_date]}
+table
+  thead
+    tr
+      th Nickname
+      th Email
+      th Posts
+      th Comments
+  tbody
+    - params[:report].each do |report|
+      tr
+        td= report[0]
+        td= report[1]
+        td= report[2]
+        td= report[3]

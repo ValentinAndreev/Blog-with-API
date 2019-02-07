@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'posts/:post_id', to: 'posts#show'
       post 'posts', to: 'posts#create'
       post 'authenticate', to: 'sessions#create'
+      post 'reports/by_author', to: 'reports#by_author'
     end
   end
 
